@@ -4,23 +4,23 @@ import reducer from './reducers'
 
 
 export const initialState = {
-    main: {
-        data: true
-    }
+  main: {
+    data: true
+  }
 }
 
 
 function Provider({ children }) {
-    const [state, dispatch] = useReducer(
-        reducer,
-        initialState
-    )
+  const [state, dispatch] = useReducer(
+    reducer,
+    initialState
+  )
 
-    return (
-        <Context.Provider value={{ state, dispatch }}>
-            {children}
-        </Context.Provider>
-    )
+  return (
+    <Context.Provider value={{ state, dispatch }}>
+      {children}
+    </Context.Provider>
+  )
 }
 
 export default Provider

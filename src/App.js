@@ -5,13 +5,13 @@ import RoutesList from './routes'
 import Provider from './state/Provider'
 
 function App() {
-    return (
-        <Provider>
-            <Router>
-                <RoutesList></RoutesList>
-            </Router>
-        </Provider>
-    )
+  return (
+    <Provider>
+      <Router>
+        <RoutesList></RoutesList>
+      </Router>
+    </Provider>
+  )
 }
 
 export default App

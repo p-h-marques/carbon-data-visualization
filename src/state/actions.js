@@ -7,8 +7,8 @@ import * as types from './types'
  * @returns
  */
 export function simpleUpdate(data){
-    return {
-        type: types.SIMPLE_UPDATE,
-        payload: data,
-    }
+  return {
+    type: types.SIMPLE_UPDATE,
+    payload: data,
+  }
 }

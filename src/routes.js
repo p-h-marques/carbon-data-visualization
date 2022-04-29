@@ -7,17 +7,17 @@ import './index.scss'
 import './app.scss'
 
 function RoutesList() {
-    return (
-        <Switch>
-            <Route exact path="/">
-                <Main></Main>
-            </Route>
+  return (
+    <Switch>
+      <Route exact path="/">
+        <Main></Main>
+      </Route>
 
-            <Route exact path="*">
-                <Redirect to="/" />
-            </Route>
-        </Switch>
-    )
+      <Route exact path="*">
+        <Redirect to="/" />
+      </Route>
+    </Switch>
+  )
 }
 
 export default RoutesList
