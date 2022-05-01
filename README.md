@@ -10,3 +10,5 @@ Olá! Aqui é o Pedro, e esse repositório contém o desenvolvimento do gráfico
 ## Rodando o projeto
 
 Você pode executar o projeto utilizando o **Docker**, usando o comando `docker compose up` na pasta raiz desse projeto.
+
+Caso queira visualizar o projeto que está publicado no **Firebase**, basta visitar [esse link!](https://carbon-data-visualization.web.app/)
