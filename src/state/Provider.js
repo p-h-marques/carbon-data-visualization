@@ -9,6 +9,11 @@ export const initialState = {
     startDate: getPreviousYears(5),
     finalDate: new Date(),
   },
+  request: {
+    loading: false,
+    error: false,
+    data: [],
+  },
 }
 
 function Provider({ children }) {

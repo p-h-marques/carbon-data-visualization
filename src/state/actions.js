@@ -12,3 +12,10 @@ export function updateDatepicker(data) {
     payload: data,
   }
 }
+
+export function updateRequest(data) {
+  return {
+    type: types.UPDATE_REQUEST,
+    payload: data,
+  }
+}

@@ -12,6 +12,15 @@ function reducer(state, action) {
         },
       }
 
+    case types.UPDATE_REQUEST:
+      return {
+        ...state,
+        request: {
+          ...state.request,
+          ...action.payload,
+        },
+      }
+
     default:
       throw new Error()
   }

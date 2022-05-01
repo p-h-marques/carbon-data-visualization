@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useCallback, useState } from 'react'
+import React, { useContext, useEffect, useCallback } from 'react'
 import { MainStyles } from './styles'
 
 import Context from '../../state/Context'
@@ -8,19 +8,21 @@ import { DatePicker, DatePickerInput } from 'carbon-components-react'
 
 const Main = () => {
   const { state, dispatch } = useContext(Context)
-  const [date, setDate] = useState([
-    state.filters.startDate,
-    state.filters.finalDate,
-  ])
 
-  const handleChange = useCallback(e => {
-    console.log(e)
-    setDate(e)
+  const handleDatepickerChange = useCallback(e => {
     dispatch(actions.updateDatepicker(e))
   }, [])
 
-  useEffect(() => {
-    getEconomicActivity(state.filters)
+  useEffect(async () => {
+    dispatch(
+      actions.updateRequest({
+        loading: true,
+        error: false,
+      }),
+    )
+
+    const request = await getEconomicActivity(state.filters)
+    dispatch(actions.updateRequest(request))
   }, [state.filters])
 
   useEffect(() => {
@@ -36,8 +38,8 @@ const Main = () => {
           <DatePicker
             datePickerType="range"
             size="md"
-            value={date}
-            onChange={handleChange}
+            value={[state.filters.startDate, state.filters.finalDate]}
+            onChange={handleDatepickerChange}
           >
             <DatePickerInput
               id="date-picker-input-id-start"
@@ -53,7 +55,17 @@ const Main = () => {
             />
           </DatePicker>
         </div>
-        <p className="visualization__chart">chart here!</p>
+        {state.request.loading && (
+          <p className="visualization__chart">loading...</p>
+        )}
+
+        {state.request.error && (
+          <p className="visualization__chart">something wrong happened!</p>
+        )}
+
+        {!state.request.loading && !state.request.error && (
+          <p className="visualization__chart">chart here!</p>
+        )}
       </div>
     </MainStyles>
   )
