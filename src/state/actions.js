@@ -1,14 +1,14 @@
 import * as types from './types'
 
 /**
- * Action para update simples
+ * Action para update do datepicker
  *
  * @param {boolean} data
  * @returns
  */
-export function simpleUpdate(data){
+export function updateDatepicker(data) {
   return {
-    type: types.SIMPLE_UPDATE,
+    type: types.UPDATE_DATEPICKER,
     payload: data,
   }
 }

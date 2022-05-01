@@ -2,13 +2,14 @@ import * as types from './types'
 
 function reducer(state, action) {
   switch (action.type) {
-    case types.SIMPLE_UPDATE:
+    case types.UPDATE_DATEPICKER:
       return {
         ...state,
-        main: {
-          ...state.main,
-          data: action.payload
-        }
+        filters: {
+          ...state.filters,
+          startDate: action.payload[0],
+          finalDate: action.payload[1],
+        },
       }
 
     default:

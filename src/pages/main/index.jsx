@@ -1,11 +1,22 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useCallback, useState } from 'react'
 import { MainStyles } from './styles'
 
 import Context from '../../state/Context'
-import { Button, DatePicker, DatePickerInput } from 'carbon-components-react'
+import * as actions from '../../state/actions'
+import { DatePicker, DatePickerInput } from 'carbon-components-react'
 
 const Main = () => {
-  const { state } = useContext(Context)
+  const { state, dispatch } = useContext(Context)
+  const [date, setDate] = useState([
+    state.filters.startDate,
+    state.filters.finalDate,
+  ])
+
+  const handleChange = useCallback(e => {
+    console.log(e)
+    setDate(e)
+    dispatch(actions.updateDatepicker(e))
+  }, [])
 
   useEffect(() => {
     console.log(state)
@@ -17,7 +28,12 @@ const Main = () => {
         <h1 className="visualization__heading">Data Visualization</h1>
 
         <div className="visualization__filters">
-          <DatePicker datePickerType="range" size="md">
+          <DatePicker
+            datePickerType="range"
+            size="md"
+            value={date}
+            onChange={handleChange}
+          >
             <DatePickerInput
               id="date-picker-input-id-start"
               labelText="Start date"
@@ -31,7 +47,6 @@ const Main = () => {
               size="sm"
             />
           </DatePicker>
-          <Button>Apply</Button>
         </div>
         <p className="visualization__chart">chart here!</p>
       </div>
