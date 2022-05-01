@@ -4,7 +4,12 @@ import { MainStyles } from './styles'
 import Context from '../../state/Context'
 import * as actions from '../../state/actions'
 import { getEconomicActivity } from '../../services/economicActivity'
-import { DatePicker, DatePickerInput } from 'carbon-components-react'
+import {
+  DatePicker,
+  DatePickerInput,
+  Loading,
+  InlineNotification,
+} from 'carbon-components-react'
 import { LineChart } from '@carbon/charts-react'
 import '@carbon/charts/styles.css'
 
@@ -81,11 +86,29 @@ const Main = () => {
           </DatePicker>
         </div>
         {state.request.loading && (
-          <p className="visualization__chart">loading...</p>
+          <div className="visualization__chart">
+            <Loading
+              description="Active loading indicator"
+              withOverlay={false}
+              small={true}
+            />
+          </div>
         )}
 
         {state.request.error && (
-          <p className="visualization__chart">something wrong happened!</p>
+          <div className="visualization__chart">
+            <InlineNotification
+              ariaLabel="closes notification"
+              className="visualization__chart--error"
+              hideCloseButton={true}
+              kind="error"
+              lowContrast={true}
+              role="alert"
+              statusIconDescription="notification"
+              subtitle="Try another date interval."
+              title="Ops, something went wrong!"
+            />
+          </div>
         )}
 
         {!state.request.loading && !state.request.error && (

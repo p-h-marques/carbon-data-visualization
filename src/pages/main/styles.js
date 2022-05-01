@@ -24,5 +24,16 @@ export const MainStyles = styled.div`
       display: flex;
       column-gap: 32px;
     }
+
+    &__chart {
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &--error {
+        margin-bottom: auto;
+      }
+    }
   }
 `
