@@ -1,4 +1,7 @@
-import { getFormattedDate } from './handlingDates'
+import {
+  getFormattedDate,
+  transformBrToInternationalDate,
+} from './handlingDates'
 
 const url =
   'https://api.bcb.gov.br/dados/serie/bcdata.sgs.24363/dados?formato=json'
@@ -7,6 +10,16 @@ const defaultReturn = {
   data: [],
   loading: false,
   error: false,
+}
+
+function mapResponse(response) {
+  return response.map(obj => {
+    return {
+      ...obj,
+      group: 'main',
+      data: transformBrToInternationalDate(obj.data),
+    }
+  })
 }
 
 export async function getEconomicActivity(filters) {
@@ -19,7 +32,7 @@ export async function getEconomicActivity(filters) {
     )
     const response = await request.json()
 
-    return { ...defaultReturn, data: response }
+    return { ...defaultReturn, data: mapResponse(response) }
   } catch (error) {
     return { ...defaultReturn, error: true }
   }

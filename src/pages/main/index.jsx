@@ -5,6 +5,31 @@ import Context from '../../state/Context'
 import * as actions from '../../state/actions'
 import { getEconomicActivity } from '../../services/economicActivity'
 import { DatePicker, DatePickerInput } from 'carbon-components-react'
+import { LineChart } from '@carbon/charts-react'
+import '@carbon/charts/styles.css'
+
+const chartOptions = {
+  title: 'Economic Activity',
+  axes: {
+    bottom: {
+      title: 'Date',
+      mapsTo: 'data',
+      scaleType: 'time',
+    },
+    left: {
+      mapsTo: 'valor',
+      title: 'Value (R$)',
+      scaleType: 'linear',
+    },
+  },
+  height: '400px',
+  toolbar: {
+    enabled: false,
+  },
+  timeScale: {
+    addSpaceOnEdges: 0,
+  },
+}
 
 const Main = () => {
   const { state, dispatch } = useContext(Context)
@@ -64,7 +89,12 @@ const Main = () => {
         )}
 
         {!state.request.loading && !state.request.error && (
-          <p className="visualization__chart">chart here!</p>
+          <div className="visualization__chart">
+            <LineChart
+              data={state.request.data}
+              options={chartOptions}
+            ></LineChart>
+          </div>
         )}
       </div>
     </MainStyles>
