@@ -1,40 +1,14 @@
 import React, { useContext, useEffect, useCallback } from 'react'
 import { MainStyles } from './styles'
 
+import Filters from '../../components/organisms/filter'
+import Chart from '../../components/organisms/chart'
+
 import Context from '../../state/Context'
 import * as actions from '../../state/actions'
 import { getEconomicActivity } from '../../services/economicActivity'
-import {
-  DatePicker,
-  DatePickerInput,
-  Loading,
-  InlineNotification,
-} from 'carbon-components-react'
-import { LineChart } from '@carbon/charts-react'
+import { Loading, InlineNotification } from 'carbon-components-react'
 import '@carbon/charts/styles.css'
-
-const chartOptions = {
-  title: 'Economic Activity',
-  axes: {
-    bottom: {
-      title: 'Date',
-      mapsTo: 'data',
-      scaleType: 'time',
-    },
-    left: {
-      mapsTo: 'valor',
-      title: 'Value (R$)',
-      scaleType: 'linear',
-    },
-  },
-  height: '400px',
-  toolbar: {
-    enabled: false,
-  },
-  timeScale: {
-    addSpaceOnEdges: 0,
-  },
-}
 
 const Main = () => {
   const { state, dispatch } = useContext(Context)
@@ -55,35 +29,16 @@ const Main = () => {
     dispatch(actions.updateRequest(request))
   }, [state.filters])
 
-  useEffect(() => {
-    console.log(state)
-  }, [state])
-
   return (
     <MainStyles>
       <div className="visualization">
         <h1 className="visualization__heading">Data Visualization</h1>
 
         <div className="visualization__filters">
-          <DatePicker
-            datePickerType="range"
-            size="md"
+          <Filters
             value={[state.filters.startDate, state.filters.finalDate]}
             onChange={handleDatepickerChange}
-          >
-            <DatePickerInput
-              id="date-picker-input-id-start"
-              labelText="Start date"
-              placeholder="mm/dd/yyyy"
-              size="sm"
-            />
-            <DatePickerInput
-              id="date-picker-input-id-finish"
-              labelText="End date"
-              placeholder="mm/dd/yyyy"
-              size="sm"
-            />
-          </DatePicker>
+          />
         </div>
         {state.request.loading && (
           <div className="visualization__chart">
@@ -113,10 +68,7 @@ const Main = () => {
 
         {!state.request.loading && !state.request.error && (
           <div className="visualization__chart">
-            <LineChart
-              data={state.request.data}
-              options={chartOptions}
-            ></LineChart>
+            <Chart data={state.request.data} />
           </div>
         )}
       </div>
