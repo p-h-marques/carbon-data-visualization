@@ -2,15 +2,11 @@ import React, { useReducer } from 'react'
 import Context from './Context'
 import reducer from './reducers'
 
-function getInitialDate() {
-  const today = new Date()
-  today.setFullYear(today.getFullYear() - 5)
-  return today
-}
+import { getPreviousYears } from '../services/handlingDates'
 
 export const initialState = {
   filters: {
-    startDate: getInitialDate(),
+    startDate: getPreviousYears(5),
     finalDate: new Date(),
   },
 }

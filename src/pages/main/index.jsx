@@ -3,6 +3,7 @@ import { MainStyles } from './styles'
 
 import Context from '../../state/Context'
 import * as actions from '../../state/actions'
+import { getEconomicActivity } from '../../services/economicActivity'
 import { DatePicker, DatePickerInput } from 'carbon-components-react'
 
 const Main = () => {
@@ -17,6 +18,10 @@ const Main = () => {
     setDate(e)
     dispatch(actions.updateDatepicker(e))
   }, [])
+
+  useEffect(() => {
+    getEconomicActivity(state.filters)
+  }, [state.filters])
 
   useEffect(() => {
     console.log(state)
