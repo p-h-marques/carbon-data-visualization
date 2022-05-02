@@ -1,11 +1,20 @@
 version: '3.5'
 services:
   front:
+    image: carbon-data-visualization-image
+    container_name: carbon-data-visualization
     build:
       context: .
       dockerfile: ./Dockerfile
     ports:
       - '3000:3000'
     volumes:
-      - ./:/usr/app
-    entrypoint: ['npm', 'run', 'start']
+      - type: bind
+        source: ./
+        target: /usr/app
+    networks:
+      - front
+
+networks:
+  front:
+    name: front
